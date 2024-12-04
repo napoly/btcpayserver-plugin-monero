@@ -56,8 +56,8 @@
 
   <ItemGroup>
 		<EmbeddedResource Include="Resources\**" />
-		<ProjectReference Include="..\btcpayserver\BTCPayServer\BTCPayServer.csproj" />
-		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
+		<ProjectReference Include="..\submodules\btcpayserver\BTCPayServer\BTCPayServer.csproj" />
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.11" />
 	</ItemGroup>
 
   <ItemGroup Condition="$(Configuration) != 'Release'">
