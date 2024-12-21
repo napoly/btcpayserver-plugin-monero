@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BTCPayServer.Plugins.Template.Services;
 
-public class MyPluginService
+public class MoneroService
 {
-    private readonly MyPluginDbContextFactory _pluginDbContextFactory;
+    private readonly MoneroDbContextFactory _pluginDbContextFactory;
 
-    public MyPluginService(MyPluginDbContextFactory pluginDbContextFactory)
+    public MoneroService(MoneroDbContextFactory pluginDbContextFactory)
     {
         _pluginDbContextFactory = pluginDbContextFactory;
     }

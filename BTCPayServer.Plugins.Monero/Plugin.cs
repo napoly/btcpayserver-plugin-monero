@@ -10,7 +10,7 @@ public class Plugin : BaseBTCPayServerPlugin
 {
     public override IBTCPayServerPlugin.PluginDependency[] Dependencies { get; } =
     {
-        new IBTCPayServerPlugin.PluginDependency { Identifier = nameof(BTCPayServer), Condition = ">=1.12.0" }
+        new IBTCPayServerPlugin.PluginDependency { Identifier = nameof(BTCPayServer), Condition = ">=2.0.0" }
     };
 
     public override void Execute(IServiceCollection services)
@@ -18,11 +18,11 @@ public class Plugin : BaseBTCPayServerPlugin
         services.AddSingleton<IUIExtension>(new UIExtension("TemplatePluginHeaderNav", "header-nav"));
         services.AddHostedService<ApplicationPartsLogger>();
         services.AddHostedService<PluginMigrationRunner>();
-        services.AddSingleton<MyPluginService>();
-        services.AddSingleton<MyPluginDbContextFactory>();
-        services.AddDbContext<MyPluginDbContext>((provider, o) =>
+        services.AddSingleton<MoneroService>();
+        services.AddSingleton<MoneroDbContextFactory>();
+        services.AddDbContext<MoneroDbContext>((provider, o) =>
         {
-            var factory = provider.GetRequiredService<MyPluginDbContextFactory>();
+            var factory = provider.GetRequiredService<MoneroDbContextFactory>();
             factory.ConfigureBuilder(o);
         });
     }

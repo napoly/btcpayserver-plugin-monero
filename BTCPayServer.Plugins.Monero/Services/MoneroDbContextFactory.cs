@@ -8,30 +8,30 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 
 namespace BTCPayServer.Plugins.Template.Services;
 
-public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<MyPluginDbContext>
+public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<MoneroDbContext>
 {
-    public MyPluginDbContext CreateDbContext(string[] args)
+    public MoneroDbContext CreateDbContext(string[] args)
     {
-        var builder = new DbContextOptionsBuilder<MyPluginDbContext>();
+        var builder = new DbContextOptionsBuilder<MoneroDbContext>();
 
         // FIXME: Somehow the DateTimeOffset column types get messed up when not using Postgres
         // https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/providers?tabs=dotnet-core-cli
         builder.UseNpgsql("User ID=postgres;Host=127.0.0.1;Port=39372;Database=designtimebtcpay");
 
-        return new MyPluginDbContext(builder.Options, true);
+        return new MoneroDbContext(builder.Options, true);
     }
 }
 
-public class MyPluginDbContextFactory : BaseDbContextFactory<MyPluginDbContext>
+public class MoneroDbContextFactory : BaseDbContextFactory<MoneroDbContext>
 {
-    public MyPluginDbContextFactory(IOptions<DatabaseOptions> options) : base(options, "BTCPayServer.Plugins.Template")
+    public MoneroDbContextFactory(IOptions<DatabaseOptions> options) : base(options, "BTCPayServer.Plugins.Template")
     {
     }
 
-    public override MyPluginDbContext CreateContext(Action<NpgsqlDbContextOptionsBuilder>? npgsqlOptionsAction = null)
+    public override MoneroDbContext CreateContext(Action<NpgsqlDbContextOptionsBuilder>? npgsqlOptionsAction = null)
     {
-        var builder = new DbContextOptionsBuilder<MyPluginDbContext>();
+        var builder = new DbContextOptionsBuilder<MoneroDbContext>();
         ConfigureBuilder(builder, npgsqlOptionsAction);
-        return new MyPluginDbContext(builder.Options);
+        return new MoneroDbContext(builder.Options);
     }
 }
