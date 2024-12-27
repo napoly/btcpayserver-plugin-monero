@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BTCPayServer.Plugins.Template;
 
-[Route("~/plugins/template")]
+[Route("~/XMR/setup")]
 [Authorize(AuthenticationSchemes = AuthenticationSchemes.Cookie, Policy = Policies.CanViewProfile)]
 public class UIPluginController : Controller
 {
