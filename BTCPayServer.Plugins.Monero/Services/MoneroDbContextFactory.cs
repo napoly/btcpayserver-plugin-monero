@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Options;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 
-namespace BTCPayServer.Plugins.Template.Services;
+namespace BTCPayServer.Plugins.Monero.Services;
 
 public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<MoneroDbContext>
 {
@@ -24,7 +24,7 @@ public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<MoneroDbCo
 
 public class MoneroDbContextFactory : BaseDbContextFactory<MoneroDbContext>
 {
-    public MoneroDbContextFactory(IOptions<DatabaseOptions> options) : base(options, "BTCPayServer.Plugins.Template")
+    public MoneroDbContextFactory(IOptions<DatabaseOptions> options) : base(options, "BTCPayServer.Plugins.Monero")
     {
     }
 

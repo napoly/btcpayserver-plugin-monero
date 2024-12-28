@@ -2,7 +2,7 @@ using System;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace BTCPayServer.Plugins.Template.Migrations
+namespace BTCPayServer.Plugins.Monero.Migrations
 {
     [DbContext(typeof(MoneroDbContext))]
     [Migration("20201117154419_Init")]
@@ -11,11 +11,11 @@ namespace BTCPayServer.Plugins.Template.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "BTCPayServer.Plugins.Template");
+                name: "BTCPayServer.Plugins.Monero");
 
             migrationBuilder.CreateTable(
                 name: "PluginRecords",
-                schema: "BTCPayServer.Plugins.Template",
+                schema: "BTCPayServer.Plugins.Monero",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
@@ -31,7 +31,7 @@ namespace BTCPayServer.Plugins.Template.Migrations
         {
             migrationBuilder.DropTable(
                 name: "PluginRecords",
-                schema: "BTCPayServer.Plugins.Template");
+                schema: "BTCPayServer.Plugins.Monero");
         }
     }
 }
