@@ -1,25 +1,64 @@
 @using BTCPayServer.Abstractions.Extensions
-@using BTCPayServer.Plugins.Template.Views
-@model BTCPayServer.Plugins.Template.PluginPageViewModel
+@using BTCPayServer.Plugins.Monero.Views
+@using BTCPayServer.Plugins.Monero.Model
+@model BTCPayServer.Plugins.Monero.Model.MoneroNodeViewModel
 @{
-    ViewData.SetActivePage(PluginNavPages.Index, "Plugin Template");
+    ViewData.SetActivePage(PluginNavPages.Index, "Connect to a Monero node");
 }
-<h1>@ViewData["Title"]</h1>
-<p>Here is an image loaded from the plugin</p>
-<p>
-    <a href="https://twitter.com/NicolasDorier/status/1307221679014256640">
-        <img src="/Resources/img/screengrab.png"/>
-    </a>
-</p>
 
-<h2>Persisted Data</h2>
-<p>
-    The following is data persisted to the configured database but in an isolated DbContext.
-    Every time you start BTCPay Server with this plugin enabled, a timestamp is logged.
-</p>
-<ul class="list-group">
-    @foreach (var item in Model.Data)
-    {
-        <li class="list-group-item">@item.Id at @item.Timestamp.ToString("F")</li>
-    }
-</ul>
+@section PageHeadContent {
+    <style>
+        #save { min-width: 7rem; }
+        #MoneroNodeTypeTabs ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        #MoneroNodeTypeTabs ul li code,
+        #MoneroNodeTypeTabs pre {
+            display: block;
+            color: var(--btcpay-code-text);
+            background: var(--btcpay-bg-tile);
+            margin: .25rem 0;
+            padding: .75rem 1rem;
+            border-radius: 4px;
+        }
+    </style>
+}
+
+<div class="row justify-content-md-center mt-5 pt-sm-3 pt-md-0">
+    <div class="col-md-10 col-lg-8 col-xl-7">
+        <h1 class="text-center mb-5">@ViewData["Title"]</h1>
+
+        <form method="post" class="mt-n2 text-center">
+            <div id="MoneroNodeTypeTablist" class="nav btcpay-pills align-items-center justify-content-center mb-3" role="tablist">
+                <input asp-for="MoneroNodeType" value="@MoneroNodeType.Internal" type="radio" id="MoneroNodeType-@MoneroNodeType.Internal" data-bs-toggle="pill" data-bs-target="#InternalSetup" role="tab" aria-controls="InternalSetup" aria-selected="@(Model.MoneroNodeType == MoneroNodeType.Internal ? "true" : "false")" class="@(Model.MoneroNodeType == MoneroNodeType.Internal ? "active" : "")" disabled="@(!Model.CanUseInternalNode)">
+                <label asp-for="MoneroNodeType" for="@($"MoneroNodeType-{MoneroNodeType.Internal}")" text-translate="true">Use internal node</label>
+                
+                <input asp-for="MoneroNodeType" value="@MoneroNodeType.Custom" type="radio" id="MoneroNodeType-@MoneroNodeType.Custom" data-bs-toggle="pill" data-bs-target="#CustomSetup" role="tab" aria-controls="CustomSetup" aria-selected="@(Model.MoneroNodeType == MoneroNodeType.Custom ? "true" : "false")" class="@(Model.MoneroNodeType == MoneroNodeType.Custom ? "active" : "")">
+                <label asp-for="MoneroNodeType" for="@($"MoneroNodeType-{MoneroNodeType.Custom}")" text-translate="true">Use custom node</label>
+            </div>
+
+            <div id="MoneroNodeTypeTabs" class="tab-content text-start">
+                <div id="InternalSetup" class="pt-3 tab-pane fade @(Model.MoneroNodeType == MoneroNodeType.Internal ? "show active" : "")" role="tabpanel" aria-labelledby="MoneroNodeType-@MoneroNodeType.Internal">
+                    @if (Model.CanUseInternalNode)
+                    {
+                        <p class="mb-4" text-translate="true">Using the BTCPay Server internal Monero node for this store requires no further configuration. Click the save button below to start accepting Monero.</p>
+                    }
+                    else
+                    {
+                        <p class="mb-4" text-translate="true">Your instance administrator has disabled the use of the Internal node for non-admin users.</p>
+                    }
+                </div>
+            </div>
+
+            <div class="text-start mt-4">
+                <button id="page-primary" name="command" type="submit" value="save" class="btn btn-primary me-2">Save</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+@section PageFootContent {
+    <partial name="_ValidationScriptsPartial"/>
+}

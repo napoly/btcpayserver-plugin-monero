@@ -1,16 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using BTCPayServer.Plugins.Template.Data;
+using BTCPayServer.Plugins.Monero.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace BTCPayServer.Plugins.Template.Services;
+namespace BTCPayServer.Plugins.Monero.Services;
 
-public class MyPluginService
+public class MoneroService
 {
-    private readonly MyPluginDbContextFactory _pluginDbContextFactory;
+    private readonly MoneroDbContextFactory _pluginDbContextFactory;
 
-    public MyPluginService(MyPluginDbContextFactory pluginDbContextFactory)
+    public MoneroService(MoneroDbContextFactory pluginDbContextFactory)
     {
         _pluginDbContextFactory = pluginDbContextFactory;
     }

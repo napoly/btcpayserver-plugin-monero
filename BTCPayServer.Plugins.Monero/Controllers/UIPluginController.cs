@@ -2,20 +2,21 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using BTCPayServer.Abstractions.Constants;
 using BTCPayServer.Client;
-using BTCPayServer.Plugins.Template.Data;
-using BTCPayServer.Plugins.Template.Services;
+using BTCPayServer.Plugins.Monero.Data;
+using BTCPayServer.Plugins.Monero.Services;
+using BTCPayServer.Plugins.Monero.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BTCPayServer.Plugins.Template;
+namespace BTCPayServer.Plugins.Monero;
 
-[Route("~/plugins/template")]
+[Route("~/XMR/setup")]
 [Authorize(AuthenticationSchemes = AuthenticationSchemes.Cookie, Policy = Policies.CanViewProfile)]
 public class UIPluginController : Controller
 {
-    private readonly MyPluginService _PluginService;
+    private readonly MoneroService _PluginService;
 
-    public UIPluginController(MyPluginService PluginService)
+    public UIPluginController(MoneroService PluginService)
     {
         _PluginService = PluginService;
     }
@@ -23,7 +24,7 @@ public class UIPluginController : Controller
     // GET
     public async Task<IActionResult> Index()
     {
-        return View(new PluginPageViewModel { Data = await _PluginService.Get() });
+        return View(new MoneroNodeViewModel{});
     }
 }
 
